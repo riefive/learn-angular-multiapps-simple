@@ -10,8 +10,8 @@ const routes: Routes = [
     path: 'pages/beehive-red-angry',
     loadChildren: () => import('./pages/bee-red-angry/bee-red-angry.module').then(mod=>mod.BeeRedAngryModule),
   },
-  { path: '', redirectTo: 'pages/beehive-red-happy', pathMatch:'full'},
-  { path: '**', redirectTo: 'pages/beehive-red-happy', pathMatch:'full'},
+  { path: '', redirectTo: 'pages/beehive-red-happy', pathMatch: 'full' },
+  { path: '**', redirectTo: 'pages/beehive-red-happy', pathMatch: 'full' },
 ];
 
 @NgModule({
