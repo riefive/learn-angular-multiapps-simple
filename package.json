@@ -8,6 +8,7 @@
     "start:app2": "ng serve --project application2",
     "start:red": "ng serve --project beehive-red",
     "start:green": "ng serve --project beehive-green",
+    "start:blue": "ng serve --project beehive-blue",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
