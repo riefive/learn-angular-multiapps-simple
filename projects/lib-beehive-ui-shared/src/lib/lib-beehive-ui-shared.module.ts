@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
-import { LibBeehiveUiSharedComponent } from './lib-beehive-ui-shared.component';
-
-
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { IdentifierModule } from './features/identifier';
+import { MenuModule } from './features/menu/menu.module';
 
 @NgModule({
-  declarations: [
-    LibBeehiveUiSharedComponent
-  ],
+  declarations: [],
   imports: [
+    CommonModule,
+    RouterModule,
+    IdentifierModule,
+    MenuModule,
   ],
-  exports: [
-    LibBeehiveUiSharedComponent
-  ]
+  exports: [IdentifierModule, MenuModule]
 })
 export class LibBeehiveUiSharedModule { }
