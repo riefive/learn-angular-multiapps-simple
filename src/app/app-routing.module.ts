@@ -48,6 +48,10 @@ if (isImport) { // version 1
       path: 'demo-security', 
       loadChildren: () => import('../../projects/demo-form-security/src/app/components/demo-security/demo-security.module').then(m => m.DemoSecurityModule) 
     },
+    { 
+      path: 'demo-table', 
+      loadChildren: () => import('../../projects/demo-material/src/app/pages/demo-table/demo-table.module').then(m => m.DemoTableModule) 
+    },
     { path: '**', redirectTo: '/app1/one'}
   ];
 } else { // version 2
