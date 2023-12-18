@@ -36,6 +36,18 @@ if (isImport) { // version 1
       path: 'pages/beehive-blue-angry',
       loadChildren: () => import('../../projects/beehive-blue/src/app/pages/bee-blue-angry/bee-blue-angry.module').then(mod=>mod.BeeBlueAngryModule),
     },
+    { 
+      path: 'demo-image', 
+      loadChildren: () => import('../../projects/demo-form-security/src/app/components/demo-image/demo-image.module').then(m => m.DemoImageModule) 
+    },
+    { 
+      path: 'demo-contact', 
+      loadChildren: () => import('../../projects/demo-form-security/src/app/components/demo-contact/demo-contact.module').then(m => m.DemoContactModule) 
+    },
+    { 
+      path: 'demo-security', 
+      loadChildren: () => import('../../projects/demo-form-security/src/app/components/demo-security/demo-security.module').then(m => m.DemoSecurityModule) 
+    },
     { path: '**', redirectTo: '/app1/one'}
   ];
 } else { // version 2
