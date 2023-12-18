@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { View1Component } from './view1/view1.component';
 import { View2Component } from './view2/view2.component';
 import { NavComponent } from './nav/nav.component';
+import { HomeComponent } from './home/home.component';
 
 const providers: any = [];
 
@@ -13,7 +14,8 @@ const providers: any = [];
     AppComponent,
     View1Component,
     View2Component,
-    NavComponent
+    NavComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

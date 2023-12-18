@@ -4,10 +4,10 @@ import { of } from 'rxjs';
 
 @Component({
   selector: 'app-security',
-  templateUrl: './security.component.html',
-  styleUrls: ['./security.component.css']
+  templateUrl: './demo-security.component.html',
+  styleUrls: ['./demo-security.component.css']
 })
-export class SecurityComponent implements OnInit, AfterViewInit {
+export class DemoSecurityComponent implements OnInit, AfterViewInit {
   dangerousUrl: string = '';
   trustedUrl!: SafeUrl;
   dangerousVideoUrl!: string;

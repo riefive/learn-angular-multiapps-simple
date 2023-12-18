@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@ang
 
 @Component({
   selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  templateUrl: './demo-contact.component.html',
+  styleUrls: ['./demo-contact.component.css']
 })
-export class ContactComponent implements OnInit {
+export class DemoContactComponent implements OnInit {
   form!: FormGroup;
   displayText: string = '';
 

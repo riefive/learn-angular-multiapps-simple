@@ -1,9 +1,11 @@
 <div class="flex flex-col justify-center items-center mt-4">
   <h1 class="text-2xl font-semibold">Learn Angular 12 SSR</h1>
-  <app-contact></app-contact>
-  <div class="divider"></div>
-  <app-security></app-security>
-  <div class="divider"></div>
-  <app-demo-image></app-demo-image>
+  <ul class="menu menu-sm bg-base-200 w-56 rounded-box">
+    <li><a routerLink="demo-image">Demo Image</a></li>
+    <li><a routerLink="demo-contact">Demo Contact</a></li>
+    <li><a routerLink="demo-security">Demo Security</a></li>
+  </ul>
+  <br />
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>
+
