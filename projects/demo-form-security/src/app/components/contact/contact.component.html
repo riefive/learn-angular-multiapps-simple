@@ -1,0 +1,45 @@
+<div class="grid grid-cols-2 gap-4 mt-10">
+    <form [formGroup]="form" method="post" (ngSubmit)="HandleSubmit()">
+        <div class="flex flex-col justify-start items-center">
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">Name</span>
+                </div>
+                <input formControlName="name" type="text" placeholder="Type your name" class="input input-bordered input-sm w-full max-w-xs" />
+                <app-error-message [control]="form.get('name')!"></app-error-message>
+            </label>
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">Email</span>
+                </div>
+                <input formControlName="email" type="email" placeholder="Type your mail" class="input input-bordered input-sm w-full max-w-xs" />
+                <app-error-message [control]="form.get('email')!"></app-error-message>
+            </label>
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">Description</span>
+                </div>
+                <textarea formControlName="description" placeholder="Type your profile" class="textarea textarea-sm textarea-bordered"></textarea>
+                <app-error-message [control]="form.get('description')!"></app-error-message>
+            </label>
+            <div formArrayName="cities" class="flex flex-col gap-2">
+                <div class="flex justify-center mt-4 mb-2">
+                    <button class="btn btn-neutral btn-sm" (click)="HandleAddCity()">Add City</button>
+                </div>
+                <div *ngFor="let city of cityControls; let i = index" class="flex flex-col gap-1">
+                    <div class="flex flex-row items-center gap-2">
+                        <label class="flex-auto form-control w-full max-w-xs">
+                            <input [formControlName]="i" type="text" placeholder="Type your city" class="input input-bordered input-sm w-full max-w-xs" />
+                        </label>
+                        <button class="flex-none btn btn-error btn-sm" (click)="HandleRemoveCity(i)">Remove</button>
+                    </div>
+                    <app-error-message [control]="city"></app-error-message>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-active btn-sm btn-wide mt-4">Submit</button>
+        </div>
+    </form>
+    <div class="flex flex-col justify-start items-start gap-1">
+        <textarea placeholder="Result..." readonly [value]="displayText" class="textarea textarea-bordered h-[350px] w-full"></textarea>
+    </div>
+</div>

@@ -9,10 +9,12 @@
     "start:red": "ng serve --project beehive-red",
     "start:green": "ng serve --project beehive-green",
     "start:blue": "ng serve --project beehive-blue",
+    "start:demo": "ng serve --project demo-form-security",
     "build": "ng build --configuration production",
     "build:red": "ng build --project beehive-red --configuration production",
     "build:green": "ng build --project beehive-green --configuration production",
     "build:blue": "ng build --project beehive-blue --configuration production",
+    "build:demo": "ng build --project demo-form-security --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

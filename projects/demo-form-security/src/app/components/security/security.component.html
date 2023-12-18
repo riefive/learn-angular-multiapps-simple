@@ -1,0 +1,33 @@
+<div class="grid grid-cols-4 gap-2">
+    <div class="flex flex-col gap-2">
+        <h4>Binding innerHTML</h4>
+        <p class="font-medium">Bound value:</p>
+        <p>{{ htmlSnippet }}</p>
+        <p class="font-medium">Result of binding to innerHTML:</p>
+        <p [innerHTML]="htmlSnippet"></p>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label class="form-control w-full max-w-xs">
+            <input [(ngModel)]="inputValue" type="text" placeholder="Type your text" class="input input-bordered input-sm w-full max-w-xs" (ngModelChange)="SanitizeInput()" />
+        </label>
+        <p>Output: {{ sanitizedValue }}</p>
+    </div>
+    <div class="flex flex-col justify-start gap-2">
+        <h3>Bypass Security Component 1</h3>
+        <h4>An untrusted URL:</h4>
+        <p><a class="btn btn-sm" [href]="dangerousUrl">Click me</a></p>
+        <h4>A trusted URL:</h4>
+        <p><a class="btn btn-sm" [href]="trustedUrl">Click me</a></p>
+        <p appTextHighlight>This is text with highlight</p>
+        <p appTextHighlightEvent>This is text with highlight event</p>
+    </div>
+    <div class="flex flex-col gap-2">
+        <h3>Bypass Security Component 2</h3>
+        <h4>Resource URL:</h4>
+        <p>Showing: {{ dangerousVideoUrl }}</p>
+        <p>Trusted:</p>
+        <iframe [src]="videoUrl" title="trusted video url" class="w-[360px] h-[360px]"></iframe>
+        <p>Untrusted:</p>
+        <iframe #iframeUntrust [src]="dangerousVideoUrl | safe" title="unTrusted video url" class="w-[360px] h-[360px]"></iframe>
+    </div>
+</div>
