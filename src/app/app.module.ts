@@ -6,11 +6,13 @@ import { App1SharedModule } from 'projects/application1/src/app/app.module';
 import { App2SharedModule } from 'projects/application2/src/app/app.module';
 import { LibBeehiveUiSharedModule } from 'projects/lib-beehive-ui-shared/src/public-api';
 import { NavComponent } from './nav/nav.component';
+import { FirstComponent } from './first/first.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    FirstComponent
   ],
   imports: [
     BrowserModule,

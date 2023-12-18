@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { View1Component } from './view1/view1.component';
-import { View2Component } from './view2/view2.component';
 
 const routes: Routes = [
-  { path: 'app2/one', component: View1Component },
-  { path: 'app2/two', component: View2Component },
+  { path: 'app2/one', loadChildren: () => import('./view1/view1-routing.module').then(m => m.View1RoutingModule) },
+  { path: 'app2/two', loadChildren: () => import('./view2/view2-routing.module').then(m => m.View2RoutingModule) },
   { path: 'app2', redirectTo: 'app2/one' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)], // RouterModule.forRoot | RouterModule.forChild
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

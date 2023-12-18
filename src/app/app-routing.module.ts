@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { App1SharedModule } from '../../projects/application1/src/app/app.module';
 import { App2SharedModule } from '../../projects/application2/src/app/app.module';
+import { FirstComponent } from './first/first.component';
 
 const isImport = true;
 let routes: Routes = [];
 
 if (isImport) { // version 1
   routes = [
+    { path: '', component: FirstComponent },
     { path: 'app1', loadChildren: () => import('../../projects/application1/src/app/app.module').then(m => m.App1SharedModule) },
     { path: 'app2', loadChildren: () => import('../../projects/application2/src/app/app.module').then(m => m.App2SharedModule) },
     {
