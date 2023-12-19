@@ -13,5 +13,6 @@ import { LazyImageDirective } from '../../directives/lazy-image.directive';
     CommonModule,
     DemoImageRoutingModule
   ],
+  exports: [DemoImageComponent]
 })
 export class DemoImageModule { }

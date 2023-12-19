@@ -20,5 +20,6 @@ import { TextHighlightEventDirective } from '../../directives/text-highlight-eve
     ReactiveFormsModule,
     DemoContactRoutingModule
   ],
+  exports: [DemoContactComponent]
 })
 export class DemoContactModule { }

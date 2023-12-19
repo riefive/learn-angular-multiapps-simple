@@ -16,5 +16,6 @@ import { SafePipe } from '../../pipes/safe.pipe';
     ReactiveFormsModule,
     DemoSecurityRoutingModule,
   ],
+  exports: [DemoSecurityComponent]
 })
 export class DemoSecurityModule { }
