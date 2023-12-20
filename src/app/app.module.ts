@@ -8,6 +8,8 @@ import { App2SharedModule } from 'projects/application2/src/app/app.module';
 import { LibBeehiveUiSharedModule } from 'projects/lib-beehive-ui-shared/src/public-api';
 import { NavComponent } from './nav/nav.component';
 import { FirstComponent } from './first/first.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthChildGuard } from './guards/auth-child.guard';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,10 @@ import { FirstComponent } from './first/first.component';
     App2SharedModule.forRoot(),
     LibBeehiveUiSharedModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthChildGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
