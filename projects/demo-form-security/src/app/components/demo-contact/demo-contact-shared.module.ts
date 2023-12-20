@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoContactComponent } from './demo-contact.component';
 import { ErrorMessageComponent } from '../commons/error-message.component';
@@ -13,6 +14,7 @@ import { TextHighlightEventDirective } from '../../directives/text-highlight-eve
         DemoContactComponent
     ],
     imports: [
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
     ],

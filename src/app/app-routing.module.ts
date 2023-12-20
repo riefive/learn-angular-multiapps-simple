@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { App1SharedModule } from '../../projects/application1/src/app/app-shared.module';
 import { App2SharedModule } from '../../projects/application2/src/app/app-shared.module';
 import { FirstComponent } from './first/first.component';
@@ -66,7 +66,11 @@ const routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), App1SharedModule.forRoot(), App2SharedModule.forRoot()],
+  imports: [
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }), 
+    App1SharedModule.forRoot(), 
+    App2SharedModule.forRoot()
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

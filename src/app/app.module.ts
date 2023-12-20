@@ -16,7 +16,7 @@ import { AuthChildGuard } from './guards/auth-child.guard';
     FirstComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     LibBeehiveUiSharedModule,
