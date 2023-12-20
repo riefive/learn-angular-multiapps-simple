@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { App1SharedModule } from '../../projects/application1/src/app/app-shared.module';
 import { App2SharedModule } from '../../projects/application2/src/app/app-shared.module';
 import { FirstComponent } from './first/first.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthChildGuard } from './guards/auth-child.guard';
 
-const routes = [
+const routes: Routes = [
   { path: '', component: FirstComponent },
+  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'app1', loadChildren: () => import('../../projects/application1/src/app/app-shared.module').then(m => m.App1SharedModule) },
   { path: 'app2', loadChildren: () => import('../../projects/application2/src/app/app-shared.module').then(m => m.App2SharedModule) },
   {

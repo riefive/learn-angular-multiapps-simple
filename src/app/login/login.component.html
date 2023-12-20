@@ -1,0 +1,19 @@
+<div class="grid grid-cols-1 gap-2 my-2">
+    <form [formGroup]="form" method="post" (ngSubmit)="HandleSubmit()">
+        <div class="flex flex-col justify-start items-center">
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">Email</span>
+                </div>
+                <input formControlName="email" type="email" placeholder="Type your email" class="input input-bordered input-sm w-full max-w-xs" />
+            </label>
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">Password</span>
+                </div>
+                <input formControlName="password" type="password" placeholder="Type your password" class="input input-bordered input-sm w-full max-w-xs" />
+            </label>
+        </div>
+        <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-active btn-sm btn-wide mt-4">Submit</button>
+    </form>
+</div>
