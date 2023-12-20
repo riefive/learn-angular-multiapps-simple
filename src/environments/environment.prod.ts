@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  public: {
+    apiFake: 'https://api.escuelajs.co/api/v1'
+  }
 };
