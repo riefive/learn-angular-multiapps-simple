@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoAllRoutingModule } from './demo-all-routing.module';
 import { DemoAllComponent } from './demo-all.component';
-import { DemoImageModule } from '../demo-image/demo-image.module';
-import { DemoContactModule } from '../demo-contact/demo-contact.module';
-import { DemoSecurityModule } from '../demo-security/demo-security.module';
+import { DemoContactSharedModule } from '../demo-contact/demo-contact-shared.module';
+import { DemoImageSharedModule } from '../demo-image/demo-image-shared.module';
+import { DemoSecuritySharedModule } from '../demo-security/demo-security-shared.module';
 
 @NgModule({
   declarations: [
@@ -13,11 +12,9 @@ import { DemoSecurityModule } from '../demo-security/demo-security.module';
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DemoImageModule,
-    DemoContactModule,
-    DemoSecurityModule,
+    DemoContactSharedModule,
+    DemoImageSharedModule,
+    DemoSecuritySharedModule,
     DemoAllRoutingModule
   ],
   exports: [DemoAllComponent]

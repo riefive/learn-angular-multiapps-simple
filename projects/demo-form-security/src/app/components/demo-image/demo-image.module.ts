@@ -1,18 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DemoImageRoutingModule } from './demo-image-routing.module';
-import { DemoImageComponent } from './demo-image.component';
-import { LazyImageDirective } from '../../directives/lazy-image.directive';
+import { DemoImageSharedModule } from './demo-image-shared.module';
 
 @NgModule({
-  declarations: [
-    DemoImageComponent,
-    LazyImageDirective
-  ],
   imports: [
     CommonModule,
+    DemoImageSharedModule,
     DemoImageRoutingModule
-  ],
-  exports: [DemoImageComponent]
+  ]
 })
 export class DemoImageModule { }
