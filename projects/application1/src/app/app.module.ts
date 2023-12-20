@@ -7,8 +7,6 @@ import { View2Component } from './view2/view2.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 
-const providers: any = [];
-
 @NgModule({
   declarations: [
     AppComponent,
