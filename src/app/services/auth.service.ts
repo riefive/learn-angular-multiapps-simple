@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+  loginChange: EventEmitter<boolean> = new EventEmitter();
   userToken!: BehaviorSubject<UserTokenModel>;
   userProfile!: BehaviorSubject<UserModel>;
 
@@ -58,6 +59,7 @@ export class AuthService {
   DoSaveProfile(result: UserModel) {
     this.userProfile.next(result);
     this.cookieService.set('user', JSON.stringify(result));
+    this.loginChange.emit(this.IsLogin);
   }
 }
 

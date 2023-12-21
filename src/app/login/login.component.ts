@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AuthService, UserModel, UserTokenModel } from '../services/auth.service';
 
@@ -21,25 +22,31 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  HandleProfile() {
+    of(true).pipe(delay(1000)).subscribe(() => {
+      this.authSrv.DoGetProfile().subscribe({
+        next: (result: UserModel) => {
+          this.authSrv.DoSaveProfile(result);
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          console.log(error);
+          alert(error.statusText);
+        },
+      });
+    });
+  }
+
   HandleSubmit() {
     if (this.form.invalid) return;
     let flowAuth = this.authSrv.DoLogin(this.form.value)
     flowAuth.subscribe({
       next: (result: UserTokenModel) => {
         this.authSrv.DoSaveToken(result);
+        this.HandleProfile();
       },
       error: (error) => {
         console.log(error);
-      },
-    });
-    this.authSrv.DoGetProfile().pipe(delay(500)).subscribe({
-      next: (result: UserModel) => {
-        this.authSrv.DoSaveProfile(result);
-        this.router.navigate(['/'])
-      },
-      error: (error) => {
-        console.log(error);
-        alert(error.toString());
       },
     });
   }

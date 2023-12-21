@@ -21,7 +21,8 @@ export class NavComponent implements OnInit {
     this.authSrv.DoLogout();
     of(this.isLogin).pipe(delay(100)).subscribe({
       next: () => {
-        this.router.navigate(['/login'])
+        this.authSrv.loginChange.emit(false);
+        this.router.navigate(['/login']);
       }
     });
   }

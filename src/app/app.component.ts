@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IMenu } from 'projects/lib-beehive-ui-shared/src/public-api';
 import { AuthService } from './services/auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   menus!: IMenu[];
   isLogin!: boolean;
   title = 'learn-angular-multiapps';
@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLogin = this.authSrv.IsLogin;
+    this.authSrv.loginChange.subscribe((value) => {
+      this.isLogin = value;
+    });
     this.menus = [
       { path: '/pages/beehive-red-happy', name: 'Red-Happy' } as IMenu,
       { path: '/pages/beehive-red-angry', name: 'Red-Angry' } as IMenu,
@@ -24,5 +27,9 @@ export class AppComponent implements OnInit {
       { path: '/pages/beehive-blue-happy', name: 'Blue-Happy' } as IMenu,
       { path: '/pages/beehive-blue-angry', name: 'Blue-Angry' } as IMenu,
     ];
+  }
+
+  ngOnDestroy() {
+    this.authSrv.loginChange.unsubscribe();
   }
 }

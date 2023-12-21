@@ -18,7 +18,10 @@ const routes: Routes = [
     path: 'app1', 
     loadChildren: () => import('../../projects/application1/src/app/app-shared.module').then(m => m.App1SharedModule) 
   },
-  { path: 'app2', loadChildren: () => import('../../projects/application2/src/app/app-shared.module').then(m => m.App2SharedModule) },
+  { 
+    path: 'app2',
+    loadChildren: () => import('../../projects/application2/src/app/app-shared.module').then(m => m.App2SharedModule) 
+  },
   {
     path: 'pages',
     canActivate: [GlobalGuard, AuthGuard],
