@@ -1,5 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService, UserTokenModel } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class LoginComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authSrv: AuthService) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -20,6 +21,16 @@ export class LoginComponent implements OnInit {
 
   HandleSubmit() {
     if (this.form.invalid) return;
-    console.log(this.form.value);
+    let flowAuth = this.authSrv.DoLogin(this.form.value)
+    console.log(flowAuth)
+    flowAuth.subscribe({
+      next: (result: UserTokenModel) => {
+        this.authSrv.DoSaveToken(result);
+        console.log(result);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
