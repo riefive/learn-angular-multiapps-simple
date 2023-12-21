@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IMenu } from 'projects/lib-beehive-ui-shared/src/public-api';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,13 @@ import { IMenu } from 'projects/lib-beehive-ui-shared/src/public-api';
 })
 export class AppComponent implements OnInit {
   menus!: IMenu[];
+  isLogin!: boolean;
   title = 'learn-angular-multiapps';
 
+  constructor(private authSrv: AuthService) {}
+
   ngOnInit(): void {
+    this.isLogin = this.authSrv.IsLogin;
     this.menus = [
       { path: '/pages/beehive-red-happy', name: 'Red-Happy' } as IMenu,
       { path: '/pages/beehive-red-angry', name: 'Red-Angry' } as IMenu,

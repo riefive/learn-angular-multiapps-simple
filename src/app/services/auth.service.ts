@@ -18,7 +18,7 @@ export class AuthService {
     });
   }
 
-  get IsLogin() {
+  get IsLogin(): boolean {
     const token = this.cookieService.get('token');
     const user = this.cookieService.get('user');
     let userParsed: any = {};

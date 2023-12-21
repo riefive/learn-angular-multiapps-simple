@@ -5,5 +5,6 @@
     <a routerLink="demos/contact" class="hover:text-blue-500 hover:underline">Demo Contact</a> |
     <a routerLink="demos/security" class="hover:text-blue-500 hover:underline">Demo Security</a> |
     <a routerLink="demos/table" class="hover:text-blue-500 hover:underline">Demo Table</a> |
-    <a routerLink="login" class="hover:text-blue-500 hover:underline">Login</a>
+    <a *ngIf="!isLogin" routerLink="login" class="hover:text-blue-500 hover:underline">Login</a>
+    <a *ngIf="isLogin" class="hover:text-blue-500 hover:underline" (click)="HandleLogout()">Logout</a>
 </div>

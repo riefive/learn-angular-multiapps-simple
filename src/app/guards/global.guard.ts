@@ -17,6 +17,10 @@ export class GlobalGuard implements CanActivate {
         this.router.navigate(['/']);
         return false;
       }
+      if (!['/', '/login'].includes(state.url) && !isLogin) {
+        this.router.navigate(['/login']);
+        return false;
+      }
       return true;
   }
   

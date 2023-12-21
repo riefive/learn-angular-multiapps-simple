@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService, UserModel, UserTokenModel } from '../services/auth.service';
+import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
+import { AuthService, UserModel, UserTokenModel } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,14 +12,13 @@ import { delay } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authSrv: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private authSrv: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(4)]),
     });
-    console.log(this.authSrv.IsLogin);
   }
 
   HandleSubmit() {
@@ -35,9 +35,11 @@ export class LoginComponent implements OnInit {
     this.authSrv.DoGetProfile().pipe(delay(500)).subscribe({
       next: (result: UserModel) => {
         this.authSrv.DoSaveProfile(result);
+        this.router.navigate(['/'])
       },
       error: (error) => {
         console.log(error);
+        alert(error.toString());
       },
     });
   }
