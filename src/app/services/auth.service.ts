@@ -12,7 +12,7 @@ export class AuthService {
   userToken!: BehaviorSubject<UserTokenModel>;
   userProfile!: BehaviorSubject<UserModel>;
 
-  constructor(private http: HttpClient, private cookieService : CookieService) { 
+  constructor(private http: HttpClient, private cookieService: CookieService) { 
     this.userToken = new BehaviorSubject<UserTokenModel>({ access_token: '', refresh_token: '' });
     this.userProfile = new BehaviorSubject<UserModel>({
       id: 0, email: '', name: '', role: '', avatar: ''
@@ -41,10 +41,16 @@ export class AuthService {
     this.cookieService.delete('user');
   }
 
+  DoRefresh(): Observable<UserTokenModel> {
+    const token = this.cookieService.get('refresh');
+    return this.http.post<UserTokenModel>(`${environment.public.apiFake}/auth/refresh-token`, { refreshToken: token });
+  }
+
   DoGetProfile(): Observable<UserModel> {
+    const isSkip = true;
     let options = {};
     const token = this.cookieService.get('token');
-    if (token) {
+    if (!isSkip && token) {
       options = { headers: { 'Authorization': `Bearer ${token}`} };
     }
     return this.http.get<UserModel>(`${environment.public.apiFake}/auth/profile`, options);

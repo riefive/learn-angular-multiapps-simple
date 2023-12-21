@@ -55,6 +55,8 @@ const routes: Routes = [
   },
   {
     path: 'demos',
+    canActivate: [GlobalGuard, AuthGuard],
+    canActivateChild: [AuthChildGuard],
     children: [
       { 
         path: 'contact', 
