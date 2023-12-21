@@ -11,10 +11,12 @@ import { AuthService } from '../services/auth.service';
 })
 export class NavComponent implements OnInit {
   @Input() isLogin!: boolean;
+  menuType!: string;
 
   constructor(private authSrv: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.menuType = 'side';
   }
 
   HandleLogout() {
