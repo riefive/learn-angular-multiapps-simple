@@ -5,10 +5,15 @@ import { App2SharedModule } from '../../projects/application2/src/app/app-shared
 import { FirstComponent } from './first/first.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthChildGuard } from './guards/auth-child.guard';
+import { GlobalGuard } from './guards/global.guard';
 
 const routes: Routes = [
   { path: '', component: FirstComponent },
-  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+  { 
+    path: 'login', 
+    canActivate: [GlobalGuard],
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule) 
+  },
   { path: 'app1', loadChildren: () => import('../../projects/application1/src/app/app-shared.module').then(m => m.App1SharedModule) },
   { path: 'app2', loadChildren: () => import('../../projects/application2/src/app/app-shared.module').then(m => m.App2SharedModule) },
   {
