@@ -2,6 +2,7 @@ import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
+import * as session from 'express-session';
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
@@ -9,11 +10,26 @@ import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 const packages = require('./package.json');
 
+// declare interface session
+interface SessionData {
+  loggedIn: boolean;
+}
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), `dist/${packages.name}/browser`);
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+
+  // config session middleware
+  const sessionMiddleware = session({
+    secret: 'testersession8901',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  });
+
+  server.use(sessionMiddleware);
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -29,6 +45,20 @@ export function app(): express.Express {
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y'
   }));
+  
+  server.get('/guard/active', (req, res) => {
+    const session: SessionData = <any>req.session;
+    session.loggedIn = true;
+    res.status(200).type('json').end(JSON.stringify({ message: 'logged in is active' }));
+  });
+
+  server.get('/guard/deactive', (req, res) => {
+    const session: SessionData = <any>req.session;
+    session.loggedIn = false;
+    req.session.destroy(() => {
+      res.status(200).type('json').end(JSON.stringify({ message: 'logged in is deactive' }));
+    });
+  });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
