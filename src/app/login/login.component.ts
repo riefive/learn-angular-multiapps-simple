@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
       this.authSrv.DoGetProfile().subscribe({
         next: (result: UserModel) => {
           this.authSrv.DoSaveProfile(result);
+          this.authSrv.DoGetActiveGuard().subscribe();
           this.router.navigate(['/']);
         },
         error: (error) => {

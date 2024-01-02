@@ -56,6 +56,14 @@ export class AuthService {
     return this.http.get<UserModel>(`${environment.public.apiFake}/auth/profile`, options);
   }
 
+  DoGetActiveGuard(): Observable<any> {
+    return this.http.get('/guard/active');
+  }
+
+  DoGetDeactiveGuard(): Observable<any> {
+    return this.http.get('/guard/deactive');
+  }
+
   DoSaveToken(result: UserTokenModel) {
     this.userToken.next(result);
     this.cookieService.set('token', result.access_token);

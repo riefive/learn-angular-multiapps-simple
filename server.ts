@@ -26,7 +26,7 @@ export function app(): express.Express {
     secret: 'testersession8901',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 }
   };
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -48,7 +48,9 @@ export function app(): express.Express {
   server.get('/guard/active', (req, res) => {
     const session: SessionData = <any>req.session;
     session.loggedIn = true;
-    res.status(200).type('json').end(JSON.stringify({ message: 'logged in is active' }));
+    req.session.save(() => {
+      res.status(200).type('json').end(JSON.stringify({ message: 'logged in is active' }));
+    });
   });
 
   // deactive session loggedIn

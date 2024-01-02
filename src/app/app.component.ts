@@ -89,6 +89,7 @@ export class AppComponent implements OnInit, OnDestroy {
     of(this.isLogin).pipe(delay(100)).subscribe({
       next: () => {
         this.authSrv.loginChange.emit(false);
+        this.authSrv.DoGetDeactiveGuard().subscribe();
         this.router.navigate(['/login']);
       }
     });
