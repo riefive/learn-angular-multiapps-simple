@@ -28,15 +28,15 @@ export class InputCustomComponent implements ControlValueAccessor {
     }
   }
 
-  writeValue(value: any){
+  writeValue(value: any) {
     this.value = value
   }
 
-  registerOnChange(fn: any){
+  registerOnChange(fn: any) {
     this.onChange = fn
   }
 
-  registerOnTouched(fn: any){
+  registerOnTouched(fn: any) {
     this.onTouch = fn
   }
 

@@ -59,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
           { link: 'demos/security', text: 'Demo Security' },
           { link: 'demos/table', text: 'Demo Table' },
           { link: 'demos/accessor-one', text: 'Demo Accessor One' },
+          { link: 'demos/accessor-two', text: 'Demo Accessor Two' },
         ] 
       },
       { 

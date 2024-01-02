@@ -1,1 +1,30 @@
-<p>input-phone-number works!</p>
+<div *ngIf="!withModel">
+    <span>+</span>
+    <input class="country-code"
+        maxlength="5"
+        [disabled]="disabled"
+        [value]="value?.countryCode"
+        (keyup)="HandleCountryCodeChange($event)"
+        (focus)="HandleTouched()"
+    />
+    <input class="phone-code"
+        maxlength="20"
+        [disabled]="disabled"
+        [value]="value?.phoneNumber"
+        (keyup)="HandlePhoneNumberChange($event)"
+        (focus)="HandleTouched()"
+    />
+    <br>
+    {{ value | json }}
+</div>
+<div *ngIf="withModel">
+    <span>+</span>
+    <input class="country-code"
+        maxlength="5"
+        [disabled]="disabled"
+        [(ngModel)]="valueCountry" />
+    <input class="phone-code"
+        maxlength="20"
+        [disabled]="disabled"
+        [(ngModel)]="valuePhone" />
+</div>
