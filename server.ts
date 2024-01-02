@@ -22,14 +22,12 @@ export function app(): express.Express {
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // config session middleware
-  const sessionMiddleware = session({
+  const sessionMiddleware = {
     secret: 'testersession8901',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
-  });
-
-  server.use(sessionMiddleware);
+    cookie: { secure: false }
+  };
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -39,19 +37,21 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
-  }));
-  
+  if (server.get('env') === 'production') {
+    server.set('trust proxy', 1); // trust first proxy
+    sessionMiddleware.cookie.secure = true; // serve secure cookies
+  }
+
+  server.use(session(sessionMiddleware));
+
+  // to active session loggedIn
   server.get('/guard/active', (req, res) => {
     const session: SessionData = <any>req.session;
     session.loggedIn = true;
     res.status(200).type('json').end(JSON.stringify({ message: 'logged in is active' }));
   });
 
+  // deactive session loggedIn
   server.get('/guard/deactive', (req, res) => {
     const session: SessionData = <any>req.session;
     session.loggedIn = false;
@@ -59,6 +59,39 @@ export function app(): express.Express {
       res.status(200).type('json').end(JSON.stringify({ message: 'logged in is deactive' }));
     });
   });
+
+  // sample to check session login
+  server.get('/private', (req, res, next) => {
+    const session: SessionData = <any>req.session;
+    if (session.loggedIn) {
+      res.status(200).type('json').end(JSON.stringify({ message: 'private page' }));
+    } else {
+      res.redirect('/login'); // require the user to log in 
+    }
+  });
+
+  // guard for pages or demos
+  server.use((req, res, next) => {
+    const checkUrlPatterns = /(pages|demos)\/.+/;
+    const session: SessionData = <any>req.session;
+    const withGuard = checkUrlPatterns.test(req.url);
+    if (withGuard) {
+      if (session.loggedIn) {
+        next(); // allow the next route to run
+      } else {
+        res.redirect('/login'); // require the user to log in 
+      }
+    } else {
+      next();
+    } 
+  });
+
+  // Example Express Rest API endpoints
+  // server.get('/api/**', (req, res) => { });
+  // Serve static files from /browser
+  server.get('*.*', express.static(distFolder, {
+    maxAge: '1y'
+  }));
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
