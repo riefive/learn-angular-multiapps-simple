@@ -74,6 +74,10 @@ const routes: Routes = [
         path: 'table', 
         loadChildren: () => import('../../projects/demo-material/src/app/pages/demo-table/demo-table.module').then(m => m.DemoTableModule) 
       },
+      { 
+        path: 'accessor-one', 
+        loadChildren: () => import('../../projects/demo-material/src/app/pages/demo-accessor-one/demo-accessor-one.module').then(m => m.DemoAccessorOneModule) 
+      },
     ]
   },
   { path: '**', redirectTo: '/app1/one'}
