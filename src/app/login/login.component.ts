@@ -11,6 +11,7 @@ import { AuthService, UserModel, UserTokenModel } from '../services/auth.service
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  withApiActive: boolean = false;
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private authSrv: AuthService, private router: Router) { }
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
       this.authSrv.DoGetProfile().subscribe({
         next: (result: UserModel) => {
           this.authSrv.DoSaveProfile(result);
-          this.authSrv.DoGetActiveGuard().subscribe();
+          if (this.withApiActive) this.authSrv.DoGetActiveGuard().subscribe();
           this.router.navigate(['/']);
         },
         error: (error) => {

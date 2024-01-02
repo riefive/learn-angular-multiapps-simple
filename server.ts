@@ -3,6 +3,7 @@ import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import * as session from 'express-session';
+import * as cookieParser from 'cookie-parser';
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
@@ -43,6 +44,7 @@ export function app(): express.Express {
   }
 
   server.use(session(sessionMiddleware));
+  server.use(cookieParser());
 
   // to active session loggedIn
   server.get('/guard/active', (req, res) => {
@@ -58,6 +60,7 @@ export function app(): express.Express {
     const session: SessionData = <any>req.session;
     session.loggedIn = false;
     req.session.destroy(() => {
+      res.clearCookie('user', { maxAge: 0 });
       res.status(200).type('json').end(JSON.stringify({ message: 'logged in is deactive' }));
     });
   });
@@ -74,10 +77,14 @@ export function app(): express.Express {
 
   // guard for pages or demos
   server.use((req, res, next) => {
+    const cookies = req.cookies;
     const checkUrlPatterns = /(pages|demos)\/.+/;
     const session: SessionData = <any>req.session;
     const withGuard = checkUrlPatterns.test(req.url);
     if (withGuard) {
+      if (cookies?.user && !session.loggedIn) {
+        session.loggedIn = true;
+      }
       if (session.loggedIn) {
         next(); // allow the next route to run
       } else {
