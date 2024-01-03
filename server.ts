@@ -77,6 +77,7 @@ export function app(): express.Express {
 
   // guard for pages or demos
   server.use((req, res, next) => {
+    // const { headers: { cookie } } = req;
     const cookies = req.cookies;
     const checkUrlPatterns = /(pages|demos)\/.+/;
     const session: SessionData = <any>req.session;

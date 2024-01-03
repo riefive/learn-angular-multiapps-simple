@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
@@ -12,7 +14,12 @@ export class AuthService {
   userToken!: BehaviorSubject<UserTokenModel>;
   userProfile!: BehaviorSubject<UserModel>;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { 
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Optional() @Inject(REQUEST) private request: any,
+    private http: HttpClient, 
+    private cookieService: CookieService
+  ) { 
     this.userToken = new BehaviorSubject<UserTokenModel>({ access_token: '', refresh_token: '' });
     this.userProfile = new BehaviorSubject<UserModel>({
       id: 0, email: '', name: '', role: '', avatar: ''
@@ -20,8 +27,16 @@ export class AuthService {
   }
 
   get IsLogin(): boolean {
-    const token = this.cookieService.get('token');
-    const user = this.cookieService.get('user');
+    let token = null;
+    let user = null;
+    if (isPlatformServer(this.platformId) || !isPlatformBrowser(this.platformId)) {
+      const cookies = this.request?.cookies;
+      token = cookies.token;
+      user = cookies.user;
+    } else {
+      token = this.cookieService.get('token');
+      user = this.cookieService.get('user');
+    }
     let userParsed: any = {};
     try {
       userParsed = JSON.parse(user);
