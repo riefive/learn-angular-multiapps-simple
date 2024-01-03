@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class DemoAccessorTwoComponent implements OnInit {
   sampleForm!: FormGroup;
+  buttonPressed: boolean = false;
 
   constructor(private formBuilder: FormBuilder) { }
 

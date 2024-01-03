@@ -2,3 +2,7 @@
     <h4>Main Contact</h4>
     <app-input-phone-number formControlName="mainContact"></app-input-phone-number>
 </form>
+<app-button-toggle [(ngModel)]="buttonPressed"></app-button-toggle>
+<div>
+    <span>Result Button Clicked: {{ buttonPressed }}</span>
+</div>
