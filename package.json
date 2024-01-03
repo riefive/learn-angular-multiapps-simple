@@ -21,7 +21,7 @@
     "build:unittest": "ng build --project demo-unit-test --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:unit": "ng test --project demo-unit-test",
+    "test:unit": "ng test --code-coverage --project demo-unit-test",
     "dev:ssr": "ng run learn-angular-multiapps:serve-ssr",
     "serve:ssr": "node dist/learn-angular-multiapps/server/main.js",
     "build:ssr": "ng build && ng run learn-angular-multiapps:server",
