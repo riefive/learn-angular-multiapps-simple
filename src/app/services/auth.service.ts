@@ -15,7 +15,7 @@ export class AuthService {
   userProfile!: BehaviorSubject<UserModel>;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Optional() @Inject(PLATFORM_ID) private platformId: Object,
     @Optional() @Inject(REQUEST) private request: any,
     private http: HttpClient, 
     private cookieService: CookieService
